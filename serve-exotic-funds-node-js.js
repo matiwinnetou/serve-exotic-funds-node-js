@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
             const goldPriceInPences = $(selector).text().replace("GBX","").trim();
             const goldPriceInPounds = goldPriceInPences / 100;
     
-            fundsPrices.Inclusive_Class_H_Accumulation_GBP = schroderPriceInPounds;
+            fundsPrices.Schroder_Managed_Balanced_Inclusive_Class_H_Accumulation_GBP = schroderPriceInPounds;
             fundsPrices.Smith_and_Williamson_Global_Gold_and_Resources_Inclusive_Class_A_Income_GBP = goldPriceInPounds;
 
             res.send(JSON.stringify(fundsPrices));
