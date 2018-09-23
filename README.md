@@ -20,4 +20,8 @@ curl http://localhost:3000
   "Inclusive_Class_H_Accumulation_GBP": 0.9941,
   "Smith_and_Williamson_Global_Gold_and_Resources_Inclusive_Class_A_Income_GBP": 1.761
 }
+
+real	0m2,743s
+user	0m0,025s
+sys	0m0,016s
 ```
