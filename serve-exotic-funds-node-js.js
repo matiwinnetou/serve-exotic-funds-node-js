@@ -26,7 +26,6 @@ app.get('/', (req, res) => {
         const schroderPriceInPences = $(selector).text().replace("GBX","").trim();
         const schroderPriceInPounds = schroderPriceInPences / 100;
 
-
         request('http://www.morningstar.co.uk/uk/funds/snapshot/snapshot.aspx?id=F0GBR06XQ5', (err, goldRes, goldBody) => {
             if (err) { return console.log(err); }
             const $ = cheerio.load(goldBody);
@@ -39,14 +38,7 @@ app.get('/', (req, res) => {
 
             res.send(JSON.stringify(fundsPrices));
         });
-
-
-        
     });
-
-
-    //http://www.morningstar.co.uk/uk/funds/snapshot/snapshot.aspx?id=F0GBR06XQ5
-
 })
 
 
