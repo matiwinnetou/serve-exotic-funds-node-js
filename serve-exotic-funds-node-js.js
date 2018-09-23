@@ -1,5 +1,5 @@
 const express = require('express');
-const express = require('request');
+const request = require('request');
 const cheerio = require('cheerio');
 
 const app = express();
@@ -40,7 +40,3 @@ app.get('/', (req, res) => {
         });
     });
 })
-
-
-
-
