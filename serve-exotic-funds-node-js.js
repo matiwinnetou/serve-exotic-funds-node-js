@@ -1,5 +1,6 @@
-const cheerio = require('cheerio');
 const express = require('express');
+const express = require('request');
+const cheerio = require('cheerio');
 
 const app = express();
 
