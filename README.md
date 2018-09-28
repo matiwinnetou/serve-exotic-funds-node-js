@@ -12,16 +12,16 @@ curl http://localhost:3000
 
 ## Example:
 ```
-[mati@wit ~]$ time curl localhost:3000 | jq "."
+time curl https://kokosz.nerdpol.ovh:8086/ | jq "."
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100   155  100   155    0     0     65      0  0:00:02  0:00:02 --:--:--    65
+100   147  100   147    0     0     97      0  0:00:01  0:00:01 --:--:--    97
 {
-  "Schroder_Managed_Balanced_Inclusive_Class_H_Accumulation_GBP": 0.9941,
-  "Smith_and_Williamson_Global_Gold_and_Resources_Inclusive_Class_A_Income_GBP": 1.761
+  "Legal_and_General_US_Index_Trust_C_Class": 561.9,
+  "Smith_and_Williamson_Global_Gold_and_Resources_Inclusive_Class_A_Income_GBP": 1.7069999999999999
 }
 
-real	0m2,402s
-user	0m0,017s
-sys	0m0,015s
+real	0m1.535s
+user	0m0.028s
+sys	0m0.018s
 ```
