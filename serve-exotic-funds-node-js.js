@@ -17,12 +17,14 @@ app.use(function (req, res, next) {
 });
 
 app.get('/', (req, res) => {
-    request('http://www.morningstar.co.uk/uk/funds/snapshot/snapshot.aspx?id=F00000T21Q', (err, schroderRes, schroderBody) => {
-        if (err) { return console.log(err); }
-        const $ = cheerio.load(schroderBody);
+     //http://www.morningstar.co.uk/uk/funds/snapshot/snapshot.aspx?id=F000002QT3 
+       //http://www.morningstar.co.uk/uk/funds/snapshot/snapshot.aspx?id=F00000QTMH	
+        //request('http://www.morningstar.co.uk/uk/funds/snapshot/snapshot.aspx?id=F00000QTMH', (err, legalBody, schroderBody) => {
+	request('http://www.morningstar.co.uk/uk/funds/snapshot/snapshot.aspx?id=F00000QTMH', (err, legalRes, legalBody) => {
+	if (err) { return console.log(err); }
+        const $ = cheerio.load(legalBody);
         const selector = "#overviewQuickstatsDiv > table > tbody > tr:nth-child(2) > td.line.text";
-        const schroderPriceInPounds = parseFloat($(selector).text().replace("GBX","").trim());
-
+        const legalPriceInPounds = parseFloat($(selector).text().replace("GBX","").trim());
         request('http://www.morningstar.co.uk/uk/funds/snapshot/snapshot.aspx?id=F0GBR06XQ5', (err, goldRes, goldBody) => {
             if (err) { return console.log(err); }
             const $ = cheerio.load(goldBody);
@@ -32,7 +34,7 @@ app.get('/', (req, res) => {
                 
             const fundsPrices = {};
 
-            fundsPrices.Schroder_Tokyo_Fund_H_Accumulation_GBP = schroderPriceInPounds;
+            fundsPrices.Legal_and_General_US_Index_Trust_C_Class = legalPriceInPounds;
             fundsPrices.Smith_and_Williamson_Global_Gold_and_Resources_Inclusive_Class_A_Income_GBP = goldPriceInPounds;
 
             res.send(JSON.stringify(fundsPrices));
