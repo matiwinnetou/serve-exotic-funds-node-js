@@ -17,28 +17,24 @@ app.use(function(req, res, next) {
     next();
 });
 
+
 app.get('/', (req, res) => {
 
-const p1 = rp('http://www.morningstar.co.uk/uk/funds/snapshot/snapshot.aspx?id=F00000QTMH').then(function(htmlString) {
-    const $ = cheerio.load(htmlString);
-    const selector = "#overviewQuickstatsDiv > table > tbody > tr:nth-child(2) > td.line.text";
-    const legalPriceInPounds = parseFloat($(selector).text().replace("GBX", "").trim());
+const morningStar = (ticker) => {
+    return rp(`http://www.morningstar.co.uk/uk/funds/snapshot/snapshot.aspx?id=${ticker}`).then(function(htmlString) {
+      const $ = cheerio.load(htmlString);
+      const selector = "#overviewQuickstatsDiv > table > tbody > tr:nth-child(2) > td.line.text";
+      const price = parseFloat($(selector).text().replace("GBX", "").trim());
 
-    return legalPriceInPounds;
-}).catch(function(err) {
-    console.log("Unexpected error:" + err);
-});
+      return price;
+    }).catch(function(err) {
+      console.log("Unexpected error:" + err);
+      throw "boom";
+    });
+}
 
-const p2 = rp('http://www.morningstar.co.uk/uk/funds/snapshot/snapshot.aspx?id=F0GBR06XQ5').then(function(htmlString) {
-    const $ = cheerio.load(htmlString);
-    const selector = "#overviewQuickstatsDiv > table > tbody > tr:nth-child(2) > td.line.text";
-    const goldPriceInPences = parseFloat($(selector).text().replace("GBX", "").trim());
-    const goldPriceInPounds = goldPriceInPences / 100;
-
-    return goldPriceInPounds;
-}).catch(function(err) {
-    console.log("Unexpected error:" + err);
-});
+const p1 = morningStar("F00000QTMH");
+const p2 = morningStar("F0GBR06XQ5").then(priceInPence => priceInPence / 100);
 
 const promises = [p1, p2];
 
@@ -50,4 +46,5 @@ Promise.all(promises)
 
         res.send(JSON.stringify(fundsPrices));
     });
+
 });
