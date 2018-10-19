@@ -33,7 +33,7 @@ const morningStar = (ticker) => {
     });
 }
 
-const p1 = morningStar("F00000QTMH");
+const p1 = morningStar("F00000QTMH").then(priceInPence => priceInPence / 100);
 const p2 = morningStar("F0GBR06XQ5").then(priceInPence => priceInPence / 100);
 
 const promises = [p1, p2];
@@ -41,7 +41,7 @@ const promises = [p1, p2];
 Promise.all(promises)
     .then(data => {
         const fundsPrices = {};
-        fundsPrices.Legal_and_General_US_Index_Trust_C_Class = data[0];
+        fundsPrices.Legal_and_General_US_Index_Trust_C_Class_GBP = data[0];
         fundsPrices.Smith_and_Williamson_Global_Gold_and_Resources_Inclusive_Class_A_Income_GBP = data[1];
 
         res.send(JSON.stringify(fundsPrices));
