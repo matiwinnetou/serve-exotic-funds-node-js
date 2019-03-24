@@ -17,7 +17,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-
 app.get('/', (req, res) => {
 
 const morningStar = (ticker) => {
@@ -46,19 +45,44 @@ const szybkoPl = () => {
     });
 }
 
+const numbero = (city) => {
+  return rp(`https://www.numbeo.com/property-investment/in/${city}`).then(function(htmlString) {
+    const $ = cheerio.load(htmlString);
+    const selectorCenter = "body > div > table > tbody > tr:nth-child(7) > td.priceValue";
+    const selectorOutside = "body > div > table > tbody > tr:nth-child(8) > td.priceValue.tr_highlighted"
+
+    const priceCenterInEur = parseFloat($(selectorCenter).text().replace(",", "").replace("€", "").trim());
+    const priceOutsideInEur = parseFloat($(selectorOutside).text().replace(",", "").replace("€", "").trim());
+
+    const pricesObject = {}
+
+    pricesObject.center = priceCenterInEur;
+    pricesObject.outside = priceOutsideInEur;
+
+    return pricesObject
+  }).catch(function(err) {
+    console.log("Unexpected error:" + err);
+    throw "boom";
+  });
+}
+
 const p1 = morningStar("F00000QTMH").then(priceInPence => priceInPence / 100);
 const p2 = morningStar("F0GBR06XQ5").then(priceInPence => priceInPence / 100);
 const p3 = szybkoPl();
+const p4 = numbero("Berlin");
 
-const promises = [p1, p2, p3];
+const promises = [p1, p2, p3, p4];
 
 Promise.all(promises)
     .then(data => {
-	//console.log(JSON.stringify(data));
-        const fundsPrices = {};
-        fundsPrices.Legal_and_General_US_Index_Trust_C_Class_GBP = data[0];
-        fundsPrices.Smith_and_Williamson_Global_Gold_and_Resources_Inclusive_Class_A_Income_GBP = data[1];
-        fundsPrices.Szczecin_Centrum_Jagiellonska_za_m2_PLN = data[2];
-        res.send(JSON.stringify(fundsPrices));
+	      //console.log(JSON.stringify(data));
+        const prices = {};
+        prices.Legal_and_General_US_Index_Trust_C_Class_GBP = data[0];
+        prices.Smith_and_Williamson_Global_Gold_and_Resources_Inclusive_Class_A_Income_GBP = data[1];
+        prices.Szczecin_Centrum_Jagiellonska_za_m2_PLN = data[2];
+        prices.Berlin_Price_Per_SQM_Center = data[3].center;
+        prices.Berlin_Price_Per_SQM_Outside = data[3].outside;
+
+        res.send(JSON.stringify(prices));
     });
 });

@@ -1,0 +1,26 @@
+{
+  "name": "serve-exotic-funds-node",
+  "version": "1.0.0",
+  "description": "Express app to serve exotic funds as json",
+  "main": "serve-exotic-funds-node-js.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matiwinnetou/serve-exotic-funds-node-js.git"
+  },
+  "author": "Mateusz Czeladka",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/matiwinnetou/serve-exotic-funds-node-js/issues"
+  },
+  "homepage": "https://github.com/matiwinnetou/serve-exotic-funds-node-js#readme"
+}
