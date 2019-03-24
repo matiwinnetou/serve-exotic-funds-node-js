@@ -80,8 +80,8 @@ Promise.all(promises)
         prices.Legal_and_General_US_Index_Trust_C_Class_GBP = data[0];
         prices.Smith_and_Williamson_Global_Gold_and_Resources_Inclusive_Class_A_Income_GBP = data[1];
         prices.Szczecin_Centrum_Jagiellonska_za_m2_PLN = data[2];
-        prices.Berlin_Price_Per_SQM_Center = data[3].center;
-        prices.Berlin_Price_Per_SQM_Outside = data[3].outside;
+        prices.Berlin_Price_Per_SQM_Center_EUR = data[3].center;
+        prices.Berlin_Price_Per_SQM_Outside_EUR = data[3].outside;
 
         res.send(JSON.stringify(prices));
     });
