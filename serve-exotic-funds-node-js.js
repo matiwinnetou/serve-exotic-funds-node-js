@@ -35,7 +35,7 @@ const morningStar = (ticker) => {
 const szybkoPl = () => {
     return rp("https://ceny.szybko.pl/zachodniopomorskie-Szczecin-ul.-Jagiello%C5%84ska-ceny-mieszkan.html").then(function(htmlString) {
       const $ = cheerio.load(htmlString);
-      const selector = "#content > div > div:nth-child(1) > div:nth-child(1) > div > h3 > span.average-price";
+      const selector = "#content > div > div:nth-child(2) > div:nth-child(1) > div > h3 > span.average-price";
       const priceInPln = parseInt($(selector).attr("data-value"));
       
       return priceInPln;
